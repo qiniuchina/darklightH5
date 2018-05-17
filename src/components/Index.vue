@@ -1,11 +1,14 @@
 <template>
-    <h1 class="text-danger text-center">{{msg}}</h1>
+   <like-stock></like-stock>
 </template>
 
 <script>
-  import axios from 'axios'
+  import LikeStock from '../components/I like/LikeStock'
     export default {
         name: "index",
+      components:{
+        LikeStock
+      },
       data(){
           return{
             msg:'dark light'
@@ -13,10 +16,6 @@
       },
       mounted(){
         console.log($('h2').text());
-        axios.get('/static/test.json')
-          .then(res => {
-            console.log(res.data);
-          });
       }
     }
 </script>
@@ -24,3 +23,4 @@
 <style scoped>
 
 </style>
+n

@@ -1,4 +1,20 @@
+[
 {
-  "name":"test",
-  "age":123
+  "StockName":"重庆路桥（600106）",
+  "TodayPic":12,
+  "TodayPerct":0.0,
+  "CurrentInfo":"非黑天鹅股票"
+},
+{
+  "StockName":"重庆路桥（600106）",
+  "TodayPic":12,
+  "TodayPerct":-1.2,
+  "CurrentInfo":"非黑天鹅股票"
+},
+{
+  "StockName":"重庆路桥（600106）",
+  "TodayPic":12,
+  "TodayPerct":1.3,
+  "CurrentInfo":"非黑天鹅股票"
 }
+]
