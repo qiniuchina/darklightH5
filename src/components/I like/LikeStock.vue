@@ -1,8 +1,8 @@
 <template>
 
     <div class="container-fluid">
-      <ul class="nav nav-fill">
-        <li class="nav-item">
+      <ul class="nav nav-fill" >
+        <li class="nav-item" >
           <a class="nav-link">
             <div class="tab-p"><span :class="{'text-success':StockExc.ShangHaiStockExc.percent<0,'text-danger':StockExc.ShangHaiStockExc.percent>0}">{{StockExc.ShangHaiStockExc.num}}</span></div>
             <div  class="tab-p">上证：<span :class="{'text-success':StockExc.ShangHaiStockExc.percent<0,'text-danger':StockExc.ShangHaiStockExc.percent>0}">{{StockExc.ShangHaiStockExc.percent}}%</span></div>
@@ -34,10 +34,10 @@
 
   <div class="container">
       <div class="list-group">
-        <a v-for="(item,index) in LikeStockList" href="#" class="list-group-item list-group-item-action flex-column align-items-start" :key="index" :class="{'bg-danger':item.TodayPerct>0.0,'bg-success':item.TodayPerct<0.0,'bg-secondary':item.TodayPerct===0.0}">
+        <a v-for="(item,index) in LikeStockList" href="#" class="list-group-item list-group-item-action flex-column align-items-start" :key="index" :class="{'bg-danger':item.TodayPerct>0.0,'bg-success':item.TodayPerct<0.0,'bg-secondary':item.TodayPerct===0.0}"  @click="openStock">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1"><i class="fa fa-info-circle" aria-hidden="true"></i>{{item.StockName}}</h5>
-            <small><i class="fa fa-trash-o" aria-hidden="true"></i></small>
+            <small @click="deleteStock(index)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
           </div>
           <p class="mb-1 tab-p">今日价格：{{item.TodayPic}}</p>
           <p class="mb-1 tab-p">今日浮动：{{item.TodayPerct}}%</p>
@@ -86,6 +86,16 @@
             ]
           }
       },
+      methods:{
+        openStock(e){
+          console.log(e.target.innerText)
+        },
+        deleteStock(index){
+          console.log(index)
+          this.LikeStockList.splice(index, 1);
+          console.log(this.LikeStockList)
+        }
+      },
       mounted(){
           //获取股票数据
         axios.get('/static/test.json')
@@ -132,6 +142,9 @@
     transform: translateX(50px);
 
   }
+  .nav-link{
+    padding: 0.5rem 0.7rem;
+  }
   /*.split-border:after {*/
     /*content: '';*/
     /*position: absolute;*/
@@ -154,6 +167,12 @@
     font-size: 12px;
 
   }
+  /* iphone5/5s（平板，大于等于768px） */
+  @media (max-width: 320px) {
+    .split-border {
+      transform: translateX(40px);
+    }
+  }
   /* 小屏幕（平板，大于等于768px） */
 
   @media (min-width: 768px) {
@@ -163,7 +182,10 @@
       font-size: 12px;
 
     }
-
+    .split-border{
+      height:40px;
+      transform: translateX(100px);
+    }
   }
     /* 中等屏幕（桌面显示器，大于等于992px） */
     @media (min-width: 992px) {
@@ -172,6 +194,10 @@
 
         font-size: 17px;
 
+      }
+      .split-border{
+        height:50px;
+        transform: translateX(135px);
       }
 
     }
