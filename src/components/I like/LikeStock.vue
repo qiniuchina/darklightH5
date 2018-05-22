@@ -72,6 +72,7 @@
 
 <script>
   import axios from 'axios'
+  import {getTestList} from '../../assets/js/api'
     export default {
         name: "like-stock",
       data(){
@@ -100,14 +101,22 @@
           //获取股票数据
         axios.get('/static/test.json')
           .then(res => {
-            console.log(res.data);
-            this.LikeStockList=res.data;
+            this.LikeStockList=res.data.data;
           });
+        getTestList( res => {
+          if(res.code===1){
+            console.log(res.data);
+          }
+        })
       }
     }
 </script>
 
 <style scoped>
+  .container .list-group{
+    height: 560px;
+    overflow-y: scroll;
+  }
   .nav{
     border-bottom: darkgray solid 1px;
   }
@@ -145,18 +154,6 @@
   .nav-link{
     padding: 0.5rem 0.7rem;
   }
-  /*.split-border:after {*/
-    /*content: '';*/
-    /*position: absolute;*/
-    /*left: 0;*/
-    /*top: 6%;*/
-    /*bottom: auto;*/
-    /*right: auto;*/
-    /*height: 52%;*/
-    /*width: 5px;*/
-    /*background-color: #a89d9e;*/
-  /*}*/
-
   .list-group-item{
     margin-top:20px;
     color:white;
@@ -172,6 +169,7 @@
     .split-border {
       transform: translateX(40px);
     }
+
   }
   /* 小屏幕（平板，大于等于768px） */
 
@@ -186,6 +184,9 @@
       height:40px;
       transform: translateX(100px);
     }
+    .container .list-group{
+      height: 700px;
+    }
   }
     /* 中等屏幕（桌面显示器，大于等于992px） */
     @media (min-width: 992px) {
@@ -199,7 +200,24 @@
         height:50px;
         transform: translateX(135px);
       }
-
+      .container .list-group{
+        height: 900px;
+      }
     }
+  @media (max-height: 568px) {
+    .container .list-group{
+      height: 465px;
+    }
+  }
+  @media (max-height: 667px) {
+    .container .list-group{
+      height: 520px;
+    }
+  }
+  @media (max-height: 812px) {
+    .container .list-group{
+      height: 630px;
+    }
+  }
 
 </style>
