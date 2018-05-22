@@ -114,7 +114,6 @@
 
 <style scoped>
   .container .list-group{
-    height: 560px;
     overflow-y: scroll;
   }
   .nav{
@@ -184,9 +183,7 @@
       height:40px;
       transform: translateX(100px);
     }
-    .container .list-group{
-      height: 700px;
-    }
+
   }
     /* 中等屏幕（桌面显示器，大于等于992px） */
     @media (min-width: 992px) {
@@ -201,22 +198,27 @@
         transform: translateX(135px);
       }
       .container .list-group{
-        height: 900px;
+        height: 1300px;
       }
     }
-  @media (max-height: 568px) {
+  @media (min-height: 568px) {
     .container .list-group{
       height: 465px;
     }
   }
-  @media (max-height: 667px) {
+  @media (min-height: 667px) {
     .container .list-group{
       height: 520px;
     }
   }
-  @media (max-height: 812px) {
+  @media (min-height: 736px) {
     .container .list-group{
       height: 630px;
+    }
+  }
+  @media (min-height: 1024px) {
+    .container .list-group{
+      height: 900px;
     }
   }
 
