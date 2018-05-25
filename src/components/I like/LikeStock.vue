@@ -33,8 +33,8 @@
       </ul>
 
   <div class="container">
-      <div class="list-group">
-        <a v-for="(item,index) in LikeStockList" href="#" class="list-group-item list-group-item-action flex-column align-items-start" :key="index" :class="{'bg-danger':item.TodayPerct>0.0,'bg-success':item.TodayPerct<0.0,'bg-secondary':item.TodayPerct===0.0}"  @click="openStock">
+      <transition-group name="fadeLeft" class="list-group" tag="div">
+        <a v-for="(item,index) in LikeStockList" href="#" class="list-group-item list-group-item-action flex-column align-items-start" :key="index" :class="{'bg-danger':item.TodayPerct>0.0,'bg-success':item.TodayPerct<0.0,'bg-secondary':item.TodayPerct===0.0}" ref="stockList"  @click="openStock">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1"><i class="fa fa-info-circle" aria-hidden="true"></i>{{item.StockName}}</h5>
             <small @click="deleteStock(index)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
@@ -43,7 +43,7 @@
           <p class="mb-1 tab-p">今日浮动：{{item.TodayPerct}}%</p>
           <p class="mb-1 tab-p">当前阶段：{{item.CurrentInfo}}</p>
         </a>
-      </div>
+      </transition-group>
     </div>
       <div class="footer">
         <div class="row">
@@ -78,9 +78,9 @@
       data(){
           return{
             StockExc:{
-              ShangHaiStockExc:{num:34562, percent:-1.0},
-              ShenZhenStockExc:{num:23444, percent:0.0},
-              ChuanYeStockExc:{num:34233, percent:1.1}
+              ShangHaiStockExc:{num:0, percent:0},
+              ShenZhenStockExc:{num:0, percent:0},
+              ChuanYeStockExc:{num:0, percent:0}
             },
             LikeStockList:[
             //  {StockName:'', TodayPic:'', TodayPerct:'', CurrentInfo:''}
@@ -92,20 +92,39 @@
           console.log(e.target.innerText)
         },
         deleteStock(index){
-          console.log(index)
-          this.LikeStockList.splice(index, 1);
-          console.log(this.LikeStockList)
+          let self=this
+          console.log(self.$refs.stockList[index].className)
+          // self.$refs.stockList[index].className="animated fadeOut"
+          // setTimeout(function () {
+            self.LikeStockList.splice(index, 1);
+          //   console.log(self.LikeStockList)
+          // })
+
+
         }
       },
       mounted(){
+          let self=this;
+          //大盘数据
+        axios.get('http://hq.sinajs.cn/list=s_sh000001,s_sz399001,s_sz399006').then(res => {
+          let elements=res.data.toString().split("\n");
+          let ShangHaiStockExc=elements[0].split(",");
+          self.StockExc.ShangHaiStockExc.num=ShangHaiStockExc[1];
+          self.StockExc.ShangHaiStockExc.percent=ShangHaiStockExc[3];
+          let ShenZhenStockExc=elements[1].split(",");
+          self.StockExc.ShenZhenStockExc.num=ShenZhenStockExc[1];
+          self.StockExc.ShenZhenStockExc.percent=ShenZhenStockExc[3];
+          let ChuanYeStockExc=elements[2].split(",");
+          self.StockExc.ChuanYeStockExc.num=ChuanYeStockExc[1];
+          self.StockExc.ChuanYeStockExc.percent=ChuanYeStockExc[3];
+        }).catch(err => {
+          console.log(err);
+        })
           //获取股票数据
-        axios.get('/static/test.json')
-          .then(res => {
-            this.LikeStockList=res.data.data;
-          });
-        getTestList( res => {
+        getTestList({userId: "oxw8iwZIfeoCKJhlV3M34xZ0GUTA"}, (res) => {
           if(res.code===1){
-            console.log(res.data);
+            self.LikeStockList=res.data;
+            console.log(this.LikeStockList);
           }
         })
       }
