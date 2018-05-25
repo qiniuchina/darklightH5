@@ -53,6 +53,7 @@ module.exports = {
     "indent":[0],
     "key-spacing":[0],
     "keyword-spacing":[0],
-    "quotes":[0]
+    "quotes":[0],
+    "padded-blocks":[0]
   }
 }
