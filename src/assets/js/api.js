@@ -4,7 +4,7 @@ function _ajax(settings) {
   let config = {
     url: settings.url,
     method: settings.method || 'get', // default
-    baseURL:'http://127.0.0.1:8082/user', // 'http://16.165.176.64:8080/user',
+    baseURL:'http://127.0.0.1:8082', // 'http://16.165.176.64:8080/user',
     error: settings.error,
     success: settings.success,
     transformResponse: [function (data) {
