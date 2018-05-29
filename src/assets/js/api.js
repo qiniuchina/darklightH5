@@ -1,10 +1,23 @@
 import axios from 'axios';
 import Qs from 'qs';
+let getApiUrl
+switch (process.env.srconfig){
+  case 'dev'://开发环境
+    getApiUrl='http://16.158.102.166:8082'
+    break
+  case 'test'://测试环境
+    getApiUrl='http://16.165.176.64:8080/user'
+    break
+  default://默认开发
+    getApiUrl='http://16.158.102.166:8082'
+    break
+
+}
 function _ajax(settings) {
   let config = {
     url: settings.url,
     method: settings.method || 'get', // default
-    baseURL:'http://16.165.176.64:8080/user', // 'http://16.165.176.64:8080/user',
+    baseURL:getApiUrl, // 'http://16.165.176.64:8080/user',
     error: settings.error,
     success: settings.success,
     transformResponse: [function (data) {
