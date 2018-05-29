@@ -3,13 +3,13 @@ import Qs from 'qs';
 let getApiUrl
 switch (process.env.srconfig){
   case 'dev'://开发环境
-    getApiUrl='http://16.158.102.166:8082'
+    getApiUrl='http://16.165.176.64:8080'
     break
   case 'test'://测试环境
-    getApiUrl='http://16.165.176.64:8080/user'
+    getApiUrl='http://16.158.102.166:8082'
     break
   default://默认开发
-    getApiUrl='http://16.158.102.166:8082'
+    getApiUrl='http://16.165.176.64:8080'
     break
 
 }
