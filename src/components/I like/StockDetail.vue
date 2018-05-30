@@ -27,10 +27,10 @@
       </li>
     </ul>
     <div class="k-chat">
-      <img v-show="kTab[0].isShow" src="http://image.sinajs.cn/newchart/min/n/sh600106.gif" class="img-fluid" alt="Responsive image">
-      <img v-show="kTab[1].isShow" src="http://image.sinajs.cn/newchart/daily/n/sh600106.gif" class="img-fluid" alt="Responsive image">
-      <img v-show="kTab[2].isShow" src="http://image.sinajs.cn/newchart/weekly/n/sh600106.gif" class="img-fluid" alt="Responsive image">
-      <img v-show="kTab[3].isShow" src="http://image.sinajs.cn/newchart/monthly/n/sh600106.gif" class="img-fluid" alt="Responsive image">
+      <img v-show="kTab[0].isShow" src="http://image.sinajs.cn/newchart/min/n/sh600106.gif" class="img-fluid animated zoomIn" alt="Responsive image">
+      <img v-show="kTab[1].isShow" src="http://image.sinajs.cn/newchart/daily/n/sh600106.gif" class="img-fluid animated zoomIn" alt="Responsive image">
+      <img v-show="kTab[2].isShow" src="http://image.sinajs.cn/newchart/weekly/n/sh600106.gif" class="img-fluid animated zoomIn" alt="Responsive image">
+      <img v-show="kTab[3].isShow" src="http://image.sinajs.cn/newchart/monthly/n/sh600106.gif" class="img-fluid animated zoomIn" alt="Responsive image">
     </div>
     <div class="newsList">
       <h5>相关新闻：</h5>
