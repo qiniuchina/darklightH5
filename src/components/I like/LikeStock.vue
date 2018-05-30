@@ -34,7 +34,7 @@
 
   <div class="container">
       <transition-group name="fadeLeft" class="list-group" tag="div">
-        <a v-for="(item,index) in LikeStockList" href="#" class="list-group-item list-group-item-action flex-column align-items-start" :key="index" :class="{'bg-danger':item.TodayPerct>0.0,'bg-success':item.TodayPerct<0.0,'bg-secondary':item.TodayPerct===0.0}" ref="stockList"  @click="openStock">
+        <router-link v-for="(item,index) in LikeStockList" :to="{name:'StockDetail',params:{stockId:item.stockId}}" class="list-group-item list-group-item-action flex-column align-items-start" :key="index" :class="{'bg-danger':item.TodayPerct>0.0,'bg-success':item.TodayPerct<0.0,'bg-secondary':item.TodayPerct===0.0}" ref="stockList"  @click="openStock(item)">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1"><i class="fa fa-info-circle" aria-hidden="true"></i>{{item.StockName}}</h5>
             <small @click="deleteStock(index)"><i class="fa fa-trash-o" aria-hidden="true"></i></small>
@@ -42,7 +42,7 @@
           <p class="mb-1 tab-p">今日价格：{{item.TodayPic}}</p>
           <p class="mb-1 tab-p">今日浮动：{{item.TodayPerct}}%</p>
           <p class="mb-1 tab-p">当前阶段：{{item.CurrentInfo}}</p>
-        </a>
+        </router-link>
       </transition-group>
     </div>
       <div class="footer">
@@ -88,8 +88,8 @@
           }
       },
       methods:{
-        openStock(e){
-          console.log(e.target.innerText)
+        openStock(item){
+          console.log(item)
         },
         deleteStock(index){
           let self=this

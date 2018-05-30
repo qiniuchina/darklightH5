@@ -9,7 +9,7 @@ switch (process.env.srconfig){
     getApiUrl='http://16.158.102.166:8082'
     break
   default://默认开发
-    getApiUrl='http://16.165.176.64:8080'
+    getApiUrl='http://16.158.102.166:8082'
     break
 
 }
