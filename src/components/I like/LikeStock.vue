@@ -48,10 +48,10 @@
       <div class="footer">
         <div class="row">
           <div style="width: 20%">
-            <a href="/darklight/stocknews/list?userId=${sessionScope.user.userId}&newsSource=1" style="text-decoration: none;">
+            <router-link :to="{name:'StocksNews'}" style="text-decoration: none;">
               <i class="fa fa-newspaper-o fa-2x"></i>
               <p>黑天鹅</p>
-            </a>
+            </router-link>
           </div>
           <div style="width: 60%">
             <div class="input-group">
