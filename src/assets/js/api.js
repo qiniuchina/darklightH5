@@ -9,7 +9,7 @@ switch (process.env.srconfig){
     getApiUrl='http://16.158.102.166:8082'
     break
   default://默认开发
-    getApiUrl='http://16.158.102.166:8082'
+    getApiUrl='http://localhost:8082'
     break
 
 }
@@ -30,7 +30,7 @@ function _ajax(settings) {
   };
   axios(config)
     .then(res => {
-      config.success(res.data)
+      config.success(res.data);
     })
     .catch(err => {
       if (config.error) {
@@ -44,4 +44,8 @@ function _ajax(settings) {
 //获取用户收藏股票列表
 export function getTestList(data, success, error) {
   _ajax({url: '/user_stock_list', data:data, success: success, error: error, method:'post'});
+}
+// 通过ajax 请求获取数据
+export function getDataByAjax(url, data, success, error, method) {
+  _ajax({url:url, data:data, success: success, error: error, method:method});
 }

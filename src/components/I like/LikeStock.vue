@@ -71,8 +71,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import {getTestList} from '../../assets/js/api'
+  import {getDataByAjax, getTestList} from '../../assets/js/api'
     export default {
         name: "like-stock",
       data(){
@@ -106,20 +105,18 @@
       mounted(){
           let self=this;
           //大盘数据
-        axios.get('http://hq.sinajs.cn/list=s_sh000001,s_sz399001,s_sz399006').then(res => {
-          let elements=res.data.toString().split("\n");
-          let ShangHaiStockExc=elements[0].split(",");
-          self.StockExc.ShangHaiStockExc.num=ShangHaiStockExc[1];
-          self.StockExc.ShangHaiStockExc.percent=ShangHaiStockExc[3];
-          let ShenZhenStockExc=elements[1].split(",");
-          self.StockExc.ShenZhenStockExc.num=ShenZhenStockExc[1];
-          self.StockExc.ShenZhenStockExc.percent=ShenZhenStockExc[3];
-          let ChuanYeStockExc=elements[2].split(",");
-          self.StockExc.ChuanYeStockExc.num=ChuanYeStockExc[1];
-          self.StockExc.ChuanYeStockExc.percent=ChuanYeStockExc[3];
-        }).catch(err => {
-          console.log(err);
-        })
+        getDataByAjax( "/stock/stock_list", null, (res) => {
+          if(res.code===1) {
+            self.StockExc.ShangHaiStockExc.num = res.shPrice.stockPrice;
+            self.StockExc.ShangHaiStockExc.percent = res.shPrice.stockUpdownPercent;
+            self.StockExc.ShenZhenStockExc.num = res.szPrice.stockPrice;
+            self.StockExc.ShenZhenStockExc.percent = res.szPrice.stockUpdownPercent;
+            self.StockExc.ChuanYeStockExc.num = res.cyPrice.stockPrice;
+            self.StockExc.ChuanYeStockExc.percent = res.cyPrice.stockUpdownPercent;
+          }
+          }, null, "GET"
+        );
+
           //获取股票数据
         getTestList({userId: "oxw8iwZIfeoCKJhlV3M34xZ0GUTA"}, (res) => {
           if(res.code===1){
