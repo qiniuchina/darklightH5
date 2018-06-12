@@ -5,6 +5,7 @@ import Index from '@/components/Index'
 import LikeStock from '../components/I like/LikeStock'
 import StockDetail from '../components/I like/StockDetail'
 import StocksNews from '../components/BlackSwan/StocksNews'
+import StockDiscuss from '../components/StocksDisscuss/StockDiscuss'
 
 Vue.use(Router)
 
@@ -13,17 +14,28 @@ export default new Router({
     {
       path: '/',
       name: 'Index',
-      component: Index
+      component: Index,
+      meta:{
+        title:'黑天鹅'
+      }
     },
     {
       path:'/stockDetail/:stockId',
       name:'StockDetail',
-      component:StockDetail
+      component:StockDetail,
+      meta:{
+        title:'股票详情'
+      }
     },
     {
       path:'/stocksNews',
       name:'StocksNews',
       component:StocksNews
+    },
+    {
+      path:'/stockDiscuss',
+      name:'StockDiscuss',
+      component:StockDiscuss
     }
   ]
 })

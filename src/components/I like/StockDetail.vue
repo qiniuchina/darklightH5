@@ -49,12 +49,17 @@
         <li class="list-group-item"><a>新闻标题新闻标题新闻标题新闻标题新闻标题</a>(新闻日期2018-04-03 03:54)</li>
       </ul>
     </div>
+    <common-footer></common-footer>
   </div>
 </template>
 
 <script>
+  import CommonFooter from '../CommonFooter'
     export default {
         name: "stock-detail",
+      components:{
+        CommonFooter
+      },
       data(){
           return{
             stockId:this.$route.params.stockId,
@@ -105,7 +110,7 @@
     font-size: 0.7rem;
   }
   .list-group{
-    max-height:300px;
+    max-height:250px;
     overflow-y: scroll;
   }
   .newsList a{

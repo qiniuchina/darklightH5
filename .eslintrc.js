@@ -54,6 +54,8 @@ module.exports = {
     "key-spacing":[0],
     "keyword-spacing":[0],
     "quotes":[0],
-    "padded-blocks":[0]
+    "padded-blocks":[0],
+    "no-unused-vars":[0],
+    "comma-dangle":[0]
   }
 }

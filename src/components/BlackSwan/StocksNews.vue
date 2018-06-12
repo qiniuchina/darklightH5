@@ -10,7 +10,7 @@
       </ul>
       <div id="stocks"  class="container" v-show="navTab[0].isShow">
       <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start bg-danger">
+        <router-link :to="{name:'StockDetail',params:{stockId:'sh600106'}}" href="#" class="list-group-item list-group-item-action flex-column align-items-start bg-danger">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">金龙机电</h5>
             <small>3 days ago</small>
@@ -20,7 +20,7 @@
           <p class="mb-1 tab-p">当前阶段：非黑天鹅股票</p>
           <p class="mb-1 tab-p">90天内跌幅：-30%</p>
           <small>利空新闻(条):2</small>
-        </a>
+        </router-link>
         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start bg-success">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">金龙机电</h5>
@@ -46,14 +46,14 @@
       </div>
       </div>
      <div id="stocksNews" v-show="navTab[1].isShow">
-       <ul class="list-group">
+       <ul class="list-group" @click="openModal">
          <li class="list-group-item">
            <div class="row">
              <div class="col-3 newsitem">
                <a>顺鑫农业</a>
                <small style="display: block">2345次</small>
              </div>
-             <div class="col-9 newsitem"><a>新闻标题新闻标题新闻标题新闻标题新闻标题</a>(新闻日期2018-04-03 03:54)</div>
+             <div class="col-9 newsitem"><a href="http://www.baidu.com" @click.stop>新闻标题新闻标题新闻标题新闻标题新闻标题</a>(新闻日期2018-04-03 03:54)</div>
            </div>
          </li>
          <li class="list-group-item">
@@ -157,18 +157,45 @@
          </li>
        </ul>
      </div>
+      <common-footer></common-footer>
+      <!-- Modal -->
+      <div v-show="isModalShow" class="modal fade" :class="{'show':isModalShow}" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">您要关注此股票？</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.stop="closeModal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>1.该公司未来是否还会有更坏的消息</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" @click.stop="closeModal">取消</button>
+              <button type="button" class="btn btn-primary" @click.stop="closeModal">关注</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="isModalShow" class="modal-backdrop fade show"></div>
       </div>
 </template>
 
 <script>
+  import CommonFooter from '../CommonFooter'
     export default {
         name: "stocks-news",
+      components:{
+        CommonFooter
+      },
       data(){
         return{
           navTab:[
             {isShow:true},
             {isShow:false}
-          ]
+          ],
+          isModalShow:false
         }
       },
       methods:{
@@ -177,6 +204,14 @@
             e.isShow=false
           })
           this.navTab[index].isShow=true;
+        },
+        openModal(e){
+          console.log( e.target.innerText)
+          this.isModalShow=true
+
+        },
+        closeModal(){
+          this.isModalShow=false
         }
       }
     }
@@ -218,5 +253,16 @@
   .active{
     background-color: rgba(0, 0, 0, 0.125) !important;
     color:white !important;
+  }
+  .modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: block;
+    overflow: hidden;
+    outline: 0;
   }
 </style>

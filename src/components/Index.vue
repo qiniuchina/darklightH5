@@ -1,13 +1,13 @@
 <template>
-   <like-stock></like-stock>
+   <morning-star-list></morning-star-list>
 </template>
 
 <script>
-  import LikeStock from '../components/I like/LikeStock'
+  import MorningStarList from '../components/BlackSwan/MorningStarList'
     export default {
         name: "index",
       components:{
-        LikeStock
+        MorningStarList
       },
       data(){
           return{
