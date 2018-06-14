@@ -29,14 +29,11 @@
               <router-link v-for="(item,index) in LikeStockList" :to="{name:'StockDetail',params:{stockId:item.stockId}}" class="list-group-item list-group-item-action flex-column align-items-start" :key="index" :class="{'bg-danger':item.TodayPerct>0.0,'bg-success':item.TodayPerct<0.0,'bg-secondary':item.TodayPerct===0.0}" ref="stockList"  @click="openStock(item)">
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1"><i class="fa fa-info-circle" aria-hidden="true"></i>{{item.StockName}}</h5>
-                  <small><i class="fa fa-star-o" aria-hidden="true"></i></small>
                 </div>
                 <p class="mb-1 tab-p">今日价格：{{item.TodayPic}}</p>
                 <p class="mb-1 tab-p">今日浮动：{{item.TodayPerct}}%</p>
                 <p class="mb-1 tab-p">早晨之星阶段总收益：{{item.TotlePic}}</p>
-                <p class="mb-1 tab-p">早晨之星阶段涨跌幅：{{item.TotlePerct}}</p>
                 <p class="mb-1 tab-p">早晨之星开始日期：{{item.MorningStarDt}}</p>
-                <p class="mb-1 tab-p">持续早晨之星天数：{{item.MorningStarDays}}</p>
               </router-link>
             </div>
           </div>
@@ -50,10 +47,10 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  // import axios from 'axios'
   import Swiper from 'swiper'
   import 'swiper/dist/css/swiper.min.css'
-  import {getMorningStarList} from '../../assets/js/api'
+  import {getDataByAjax, getMorningStarList} from '../../assets/js/api'
     export default {
         name: "morning-star-list",
       data(){
@@ -71,20 +68,17 @@
       mounted(){
         let self=this;
         //大盘数据
-        axios.get('http://hq.sinajs.cn/list=s_sh000001,s_sz399001,s_sz399006').then(res => {
-          let elements=res.data.toString().split("\n");
-          let ShangHaiStockExc=elements[0].split(",");
-          self.StockExc.ShangHaiStockExc.num=ShangHaiStockExc[1];
-          self.StockExc.ShangHaiStockExc.percent=ShangHaiStockExc[3];
-          let ShenZhenStockExc=elements[1].split(",");
-          self.StockExc.ShenZhenStockExc.num=ShenZhenStockExc[1];
-          self.StockExc.ShenZhenStockExc.percent=ShenZhenStockExc[3];
-          let ChuanYeStockExc=elements[2].split(",");
-          self.StockExc.ChuanYeStockExc.num=ChuanYeStockExc[1];
-          self.StockExc.ChuanYeStockExc.percent=ChuanYeStockExc[3];
-        }).catch(err => {
-          console.log(err);
-        })
+        getDataByAjax( "/stock/stock_list", null, (res) => {
+            if(res.code===1) {
+              self.StockExc.ShangHaiStockExc.num = res.shPrice.stockPrice;
+              self.StockExc.ShangHaiStockExc.percent = res.shPrice.stockUpdownPercent;
+              self.StockExc.ShenZhenStockExc.num = res.szPrice.stockPrice;
+              self.StockExc.ShenZhenStockExc.percent = res.szPrice.stockUpdownPercent;
+              self.StockExc.ChuanYeStockExc.num = res.cyPrice.stockPrice;
+              self.StockExc.ChuanYeStockExc.percent = res.cyPrice.stockUpdownPercent;
+            }
+          }, null, "GET"
+        );
         //获取股票数据
         // axios.get('static/test.json').then(res => {
         //   console.log(res.data);
@@ -149,11 +143,6 @@
   .nav{
     background-color: white;
     border-bottom: darkgray solid 1px;
-  }
-  .swiper-pagination{
-    position: fixed;
-    bottom:0;
-    background-color: white;
   }
   .swiper-container {
     width: 100%;
@@ -258,14 +247,19 @@
 
 </style>
 <style>
+  .swiper-pagination{
+    position: fixed !important;
+    bottom:0 !important;
+    background-color: white !important;
+  }
   .swiper-pagination-bullet{
-    width:12%;
-    height:auto;
-    background:none;}
+    width:12% !important;
+    height:auto !important;
+    background:none !important;}
   .swiper-pagination-bullet p{
-    width:100%;
-    font-size: 15px;
-    align-content: center;
-    color: cadetblue;
+    width:100% !important;
+    font-size: 15px !important;
+    align-content: center !important;
+    color: cadetblue !important;
   }
 </style>
