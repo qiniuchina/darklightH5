@@ -33,16 +33,17 @@
                 </div>
                 <p class="mb-1 tab-p">今日价格：{{item.TodayPic}}</p>
                 <p class="mb-1 tab-p">今日浮动：{{item.TodayPerct}}%</p>
-                <p class="mb-1 tab-p">当前阶段：{{item.CurrentInfo}}</p>
+                <p class="mb-1 tab-p">早晨之星阶段总收益：{{item.TotlePic}}</p>
+                <p class="mb-1 tab-p">早晨之星阶段涨跌幅：{{item.TotlePerct}}</p>
+                <p class="mb-1 tab-p">早晨之星开始日期：{{item.MorningStarDt}}</p>
+                <p class="mb-1 tab-p">持续早晨之星天数：{{item.MorningStarDays}}</p>
               </router-link>
             </div>
           </div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
-        <!-- Add Arrows -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+
       </div>
 
  </div>
@@ -52,7 +53,7 @@
   import axios from 'axios'
   import Swiper from 'swiper'
   import 'swiper/dist/css/swiper.min.css'
-  // import {getTestList} from '../../assets/js/api'
+  import {getMorningStarList} from '../../assets/js/api'
     export default {
         name: "morning-star-list",
       data(){
@@ -85,34 +86,56 @@
           console.log(err);
         })
         //获取股票数据
-        axios.get('static/test.json').then(res => {
-          if(res.data.code===1){
-               self.MorningStarStockList=res.data.data;
-                console.log(res);
-              }
-        }).catch(err => {
-          console.log(err);
-        })
-        // getTestList({userId: "oxw8iwZIfeoCKJhlV3M34xZ0GUTA"}, (res) => {
-        //   if(res.code===1){
-        //     self.LikeStockList=res.data;
-        //     console.log(this.LikeStockList);
-        //   }
+        // axios.get('static/test.json').then(res => {
+        //   console.log(res.data);
+        //   if(res.data.code===1){
+        //     console.log(res.data);
+        //        self.MorningStarStockList=res.data.data;
+        //       }
+        // }).catch(err => {
+        //   console.log(err);
         // })
-        setTimeout(function () {
-          let swiper = new Swiper('.swiper-container', {
-            pagination: {
-              el: '.swiper-pagination',
-            },
-            initialSlide:self.MorningStarStockList.length-1,
-            observer:true,
-            observeParents:true,
-            navigation: {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            }
-          });
+        let year =new Date().getFullYear();//获取完整的年份(4位,1970-????)
+        let month = new Date().getMonth() + 1;//获取当前月份(0-11,0代表1月)
+        let day = new Date().getDate();//获取当前日(1-31)
+        if (month < 10) {
+          month ="0" + month;
+        }
+        if (day < 10) {
+          day ="0" + day;
+        }
+        let dateString = year +"-" + month + "-" + day;
+        getMorningStarList(res => {
+          if(res.code===1){
+            self.MorningStarStockList=res.data;
+            console.log(this.MorningStarStockList);
+            setTimeout(function () {
+              console.log(self.MorningStarStockList.length)
+              let swiper = new Swiper('.swiper-container', {
+                pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+                  renderBullet: function (index, className) {
+                    console.log(self.MorningStarStockList[index][0].MorningStarDt)
+                    let divStr;
+                    if(dateString===self.MorningStarStockList[index][0].MorningStarDt){
+                      divStr='<span class="' + className + '"><p>今天</p></span>';
+                      // eslint-disable-next-line
+                    }
+                    else{
+                      divStr='<span class="' + className + '"><p>'+self.MorningStarStockList[index][0].MorningStarDt.substring(5)+'</p></span>';
+                    }
+                    return divStr;
+                  },
+                },
+                initialSlide:self.MorningStarStockList.length-1,
+                observer:true,
+                observeParents:true,
+              });
+            })
+          }
         })
+
 
       }
     }
@@ -121,13 +144,21 @@
 <style scoped>
    .list-group{
     overflow-y: scroll;
+     height: 100%;
   }
   .nav{
+    background-color: white;
     border-bottom: darkgray solid 1px;
+  }
+  .swiper-pagination{
+    position: fixed;
+    bottom:0;
+    background-color: white;
   }
   .swiper-container {
     width: 100%;
     height: 100%;
+    margin-bottom:20px;
   }
   .swiper-slide {
     margin-bottom:32px;
@@ -200,29 +231,41 @@
       height:50px;
       transform: translateX(135px);
     }
-    .swiper-container .list-group{
-      height: 1300px;
-    }
+    /*.swiper-container .list-group{*/
+      /*height: 1300px;*/
+    /*}*/
   }
   @media (min-height: 568px) {
-    .swiper-container .list-group{
-      height: 465px;
-    }
+    /*.swiper-container .list-group{*/
+      /*height: 465px;*/
+    /*}*/
   }
   @media (min-height: 667px) {
-    .swiper-container .list-group{
-      height: 570px;
-    }
+    /*.swiper-container .list-group{*/
+      /*height: 570px;*/
+    /*}*/
   }
   @media (min-height: 736px) {
-    .swiper-container .list-group{
-      height: 630px;
-    }
+    /*.swiper-container .list-group{*/
+      /*height: 630px;*/
+    /*}*/
   }
   @media (min-height: 1024px) {
-    .swiper-container .list-group{
-      height: 900px;
-    }
+    /*.swiper-container .list-group{*/
+      /*height: 900px;*/
+    /*}*/
   }
 
+</style>
+<style>
+  .swiper-pagination-bullet{
+    width:12%;
+    height:auto;
+    background:none;}
+  .swiper-pagination-bullet p{
+    width:100%;
+    font-size: 15px;
+    align-content: center;
+    color: cadetblue;
+  }
 </style>

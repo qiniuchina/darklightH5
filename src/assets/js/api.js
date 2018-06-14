@@ -45,6 +45,10 @@ function _ajax(settings) {
 export function getTestList(data, success, error) {
   _ajax({url: '/user_stock_list', data:data, success: success, error: error, method:'post'});
 }
+//获取早晨之星股票列表
+export function getMorningStarList( success, error) {
+  _ajax({url: '/morning_star', success: success, error: error});
+}
 // 通过ajax 请求获取数据
 export function getDataByAjax(url, data, success, error, method) {
   _ajax({url:url, data:data, success: success, error: error, method:method});
