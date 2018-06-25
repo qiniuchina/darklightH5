@@ -20,7 +20,14 @@
           <div class="tab-p"><span :class="{'text-success':StockExc.ChuanYeStockExc.percent<0,'text-danger':StockExc.ChuanYeStockExc.percent>0}">{{StockExc.ChuanYeStockExc.num}}</span></div>
           <div  class="tab-p">创业：<span :class="{'text-success':StockExc.ChuanYeStockExc.percent<0,'text-danger':StockExc.ChuanYeStockExc.percent>0}">{{StockExc.ChuanYeStockExc.percent}}%</span></div>
         </a>
+        <span class="split-border"></span>
       </li>
+      <router-link :to="{name:'StocksAnalysesShow'}" tag="li" class="nav-item">
+        <a class="nav-link text-danger">
+          <div class="tab-p"><i class="fa fa-area-chart" aria-hidden="true"></i></div>
+          <div  class="tab-p">分析</div>
+        </a>
+      </router-link>
     </ul>
       <div class="swiper-container">
         <div class="swiper-wrapper">
