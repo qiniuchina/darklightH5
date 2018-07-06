@@ -5,6 +5,7 @@ import Index from '@/components/Index'
 import LikeStock from '../components/I like/LikeStock'
 import StockDetail from '../components/I like/StockDetail'
 import StocksNews from '../components/BlackSwan/StocksNews'
+import StocksAnalysesShow from '../components/BlackSwan/StocksAnalysesShow'
 import StockDiscuss from '../components/StocksDisscuss/StockDiscuss'
 
 Vue.use(Router)
@@ -31,6 +32,11 @@ export default new Router({
       path:'/stocksNews',
       name:'StocksNews',
       component:StocksNews
+    },
+    {
+      path:'/stocksAnalysesShow',
+      name:'StocksAnalysesShow',
+      component:StocksAnalysesShow
     },
     {
       path:'/stockDiscuss',
