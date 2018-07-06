@@ -15,7 +15,13 @@
       <p class="card-text">大盘情绪波动</p>
     </div>
   </div>
-
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="/static/img/linear.png" alt="线性结果分析">
+      <div class="card-body">
+        <p class="badge badge-primary">线性结果分析</p>
+        <p class="card-text">线性结果分析</p>
+      </div>
+    </div>
   </div>
 </template>
 
